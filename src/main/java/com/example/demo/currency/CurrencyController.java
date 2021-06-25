@@ -17,4 +17,26 @@ public class CurrencyController {
         return currencyService.BuildCurrency(currency);
     }
 
+    @PostMapping(path = "/edit/{nameCurrency}")
+    public List<Currency> updateCurrency(
+            @PathVariable(name = "nameCurrency") String nameCurrency,
+            @RequestParam("value") Double value){
+        return List.of(
+                currencyService.updateValueCurrency(nameCurrency, value));
+    }
+
+
+    @GetMapping(path = "{nameCurrency}")
+    public List<Currency> getCurrency(
+            @PathVariable(name = "nameCurrency") String nameCurrency,
+            @RequestParam("baseCurrency") String baseCurrency
+            ){
+        if (!baseCurrency.isEmpty())
+            currencyService.countValueCurrency(nameCurrency, baseCurrency);
+
+        return currencyService.findCurrency(nameCurrency);
+    }
+
+//    @GetMapping(path = "")
+
 }

@@ -45,29 +45,28 @@ public class Currency {
         private String nameCurrency;
         private Double amountOfCurrency;  //колво валюты
         private Double valueOfCurrency;   //стоимость валюты
-//        private Currency baseCurrency;
-        private String baseCurrency;
+        private String baseCurrency = "USD";
 
         public Currency build(){
             return new Currency(this);
         }
 
-        public CurrencyBuilder setNameCurrency(String nameCurrency) {
+        public CurrencyBuilder NameCurrency(String nameCurrency) {
             this.nameCurrency = nameCurrency;
             return this;
         }
 
-        public CurrencyBuilder setAmountOfCurrency(Double amountOfCurrency) {
+        public CurrencyBuilder AmountOfCurrency(Double amountOfCurrency) {
             this.amountOfCurrency = amountOfCurrency;
             return this;
         }
 
-        public CurrencyBuilder setValueOfCurrency(Double valueOfCurrency) {
+        public CurrencyBuilder ValueOfCurrency(Double valueOfCurrency) {
             this.valueOfCurrency = valueOfCurrency;
             return this;
         }
 
-        public CurrencyBuilder setBaseCurrency(String baseCurrency) {
+        public CurrencyBuilder BaseCurrency(String baseCurrency) {
             this.baseCurrency = baseCurrency;
             return this;
 
