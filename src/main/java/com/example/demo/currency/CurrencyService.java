@@ -75,7 +75,7 @@ public class CurrencyService {
                 );
 
         currencyDB.setValueOfCurrency(value);
-//        currencyRepo.save(currencyDB);
+        currencyRepo.save(currencyDB);
         return currencyDB;
 
     }
