@@ -17,7 +17,7 @@ import javax.persistence.Id;
 public class Currency {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameCurrency;
     private Double amountOfCurrency;  //колво валюты
@@ -67,7 +67,8 @@ public class Currency {
         }
 
         public CurrencyBuilder BaseCurrency(String baseCurrency) {
-            this.baseCurrency = baseCurrency;
+            if (!(baseCurrency == null))
+                this.baseCurrency = baseCurrency;
             return this;
 
         }
