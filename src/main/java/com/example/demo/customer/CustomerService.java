@@ -18,7 +18,7 @@ public class CustomerService {
         Customer customer = customerRepo.findByName(nameCustomer).orElseThrow(
                 () -> new IllegalStateException(String.format("Not found Customer - %s", nameCustomer)));
 
-        Map<String, Double> quantityOfCurrency = addMoneyToWallet(walletRequest);
+//        Map<String, Double> quantityOfCurrency = addMoneyToWallet(walletRequest);
 //        customer.setQuantityOfCurrency(quantityOfCurrency);
         customerRepo.save(customer);
         return customer;

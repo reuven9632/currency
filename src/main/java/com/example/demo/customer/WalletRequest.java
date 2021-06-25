@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class WalletRequest {
 
-    private Double quantity;
     private String nameCurrency;
+    private Double quantity;
 
 }

@@ -23,7 +23,6 @@ public class Currency {
     private Double amountOfCurrency;  //колво валюты
     private Double valueOfCurrency;   //стоимость валюты
     private String baseCurrency = "USD";
-//    private Currency baseCurrency;
 
     public Currency(CurrencyBuilder builder) {
         this.nameCurrency = builder.nameCurrency;

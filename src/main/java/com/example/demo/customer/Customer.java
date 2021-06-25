@@ -1,6 +1,7 @@
 package com.example.demo.customer;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -20,7 +21,6 @@ public class Customer{
     private String name;
     private String password;
     private String email;
-//    private Wallet wallet;
 //    private Map<String, Double> quantityOfCurrency;
 
 }
