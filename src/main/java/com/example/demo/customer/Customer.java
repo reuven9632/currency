@@ -21,6 +21,6 @@ public class Customer{
     private String password;
     private String email;
 //    private Wallet wallet;
-    private Map<String, Double> quantityOfCurrency;
+//    private Map<String, Double> quantityOfCurrency;
 
 }

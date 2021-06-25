@@ -4,6 +4,7 @@ import com.example.demo.currency.CurrencyRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,14 +19,14 @@ public class CustomerService {
                 () -> new IllegalStateException(String.format("Not found Customer - %s", nameCustomer)));
 
         Map<String, Double> quantityOfCurrency = addMoneyToWallet(walletRequest);
-        customer.setQuantityOfCurrency(quantityOfCurrency);
+//        customer.setQuantityOfCurrency(quantityOfCurrency);
         customerRepo.save(customer);
         return customer;
     }
 
 
 
-    public Map<String, Double> addMoneyToWallet(WalletRequest walletRequest){
+    protected Map<String, Double> addMoneyToWallet(WalletRequest walletRequest){
         if (!validateWalletRequest(walletRequest))
             throw new IllegalStateException("Currency is not valid //WalletService.addMoneyToWallet");
         Map<String, Double> quantityOfCurrency = null;
@@ -40,4 +41,11 @@ public class CustomerService {
         return present;
     }
 
+    public void addCustomer(Customer customer) {
+        customerRepo.save(customer);
+    }
+
+    public List<Customer> findAllCustomers() {
+        return customerRepo.findAll();
+    }
 }
