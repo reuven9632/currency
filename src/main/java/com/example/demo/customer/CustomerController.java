@@ -1,5 +1,6 @@
 package com.example.demo.customer;
 
+import com.example.demo.customer.wallet.CurrencyOfWallet;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,9 @@ public class CustomerController {
     @PostMapping(path = "/{nameCustomer}/money")
     public Customer addMoney(
             @PathVariable("nameCustomer") String nameCustomer,
-            @RequestBody WalletRequest walletRequest){
-        return customerService.addMoneyToCustomer(nameCustomer, walletRequest);
+            @RequestBody CurrencyOfWallet currencyOfWallet
+    ){
+        return customerService.addMoneyToCustomer(nameCustomer, currencyOfWallet);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.example.demo.customer;
 
 import com.example.demo.currency.CurrencyRepo;
+import com.example.demo.customer.wallet.CurrencyOfWallet;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,30 +16,33 @@ public class CustomerService {
     private final CurrencyRepo currencyRepo;
     private final CustomerRepo customerRepo;
 
-    public Customer addMoneyToCustomer(String nameCustomer, WalletRequest walletRequest){
+    public Customer addMoneyToCustomer(String nameCustomer, CurrencyOfWallet currencyOfWallet){
+        if (!validateWalletRequest(currencyOfWallet))
+            throw new IllegalStateException("Currency is not valid //WalletService.addMoneyToWallet");
+
         Customer customer = customerRepo.findByName(nameCustomer).orElseThrow(
                 () -> new IllegalStateException(String.format("Not found Customer - %s", nameCustomer)));
 
 //        Map<String, Double> quantityOfCurrency = addMoneyToWallet(walletRequest);
 //        customer.setQuantityOfCurrency(quantityOfCurrency);
+        ArrayList<CurrencyOfWallet> wallet = customer.getWallet();
+        wallet.add(currencyOfWallet);
+        customer.setWallet(wallet);
         customerRepo.save(customer);
         return customer;
     }
 
 
 
-    protected Map<String, Double> addMoneyToWallet(WalletRequest walletRequest){
-        if (!validateWalletRequest(walletRequest))
-            throw new IllegalStateException("Currency is not valid //WalletService.addMoneyToWallet");
-        Map<String, Double> quantityOfCurrency = null;
-        quantityOfCurrency.put(walletRequest.getNameCurrency(), walletRequest.getQuantity());
-        return quantityOfCurrency;
-    }
+//    protected CurrencyOfWallet addMoneyToWallet(CurrencyOfWallet currencyOfWallet){
+//
+//        return quantityOfCurrency;
+//    }
 
 
-    protected Boolean validateWalletRequest(WalletRequest walletRequest){
+    protected Boolean validateWalletRequest(CurrencyOfWallet currencyOfWallet){
         boolean present = currencyRepo.findByNameCurrency(
-                walletRequest.getNameCurrency()).isPresent();
+                currencyOfWallet.getNameCurrency()).isPresent();
         return present;
     }
 

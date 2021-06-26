@@ -2,10 +2,7 @@ package com.example.demo.currency;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @ToString
@@ -16,8 +13,17 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Currency {
 
+
+
+    @SequenceGenerator(
+            name = "currency_sequence",
+            sequenceName = "currency_sequence",
+            allocationSize = 1)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "currency_sequence")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameCurrency;
     private Double amountOfCurrency;  //колво валюты
