@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,21 +24,23 @@ public class CustomerService {
         Customer customer = customerRepo.findByName(nameCustomer).orElseThrow(
                 () -> new IllegalStateException(String.format("Not found Customer - %s", nameCustomer)));
 
-//        Map<String, Double> quantityOfCurrency = addMoneyToWallet(walletRequest);
-//        customer.setQuantityOfCurrency(quantityOfCurrency);
-        ArrayList<CurrencyOfWallet> wallet = customer.getWallet();
-        wallet.add(currencyOfWallet);
-        customer.setWallet(wallet);
-        customerRepo.save(customer);
+
+//        ArrayList<CurrencyOfWallet> wallet = new ArrayList<>();
+        try {
+//            wallet.add(currencyOfWallet);
+            customer.setWallet(currencyOfWallet);
+            customerRepo.save(customer);
+        }catch (NullPointerException e) {
+            throw new IllegalStateException("Not save currencyOfWallet to Wallet");
+        }
+
+
+
+
         return customer;
     }
 
 
-
-//    protected CurrencyOfWallet addMoneyToWallet(CurrencyOfWallet currencyOfWallet){
-//
-//        return quantityOfCurrency;
-//    }
 
 
     protected Boolean validateCurrencyOfWallet(CurrencyOfWallet currencyOfWallet){
@@ -59,5 +63,11 @@ public class CustomerService {
         );
         customerRepo.delete(customerDB);
         return findAllCustomers();
+    }
+
+    public Customer findCustomerById(Long id) {
+        return customerRepo.findById(id).orElseThrow(
+                () -> new IllegalStateException(String.format("Not found Customer with id - %s", id))
+        );
     }
 }

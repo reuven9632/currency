@@ -27,7 +27,12 @@ public class CustomerController {
         return customerService.addMoneyToCustomer(nameCustomer, currencyOfWallet);
     }
 
-    @DeleteMapping(path = "delete/{id}")
+    @GetMapping("{id}")
+    public Customer getCustomerById(@PathVariable("id") Long id){
+        return customerService.findCustomerById(id);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
     public List<Customer> deleteCustomer(@PathVariable("id") Long id){
         return customerService.deleteCustomer(id);
     }

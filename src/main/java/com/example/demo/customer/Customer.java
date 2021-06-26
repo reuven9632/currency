@@ -42,6 +42,9 @@ public class Customer{
 //    private CurrencyOfWallet wallet;
 
 
-    private ArrayList<CurrencyOfWallet> wallet;
+    private ArrayList<CurrencyOfWallet> wallet = new ArrayList<CurrencyOfWallet>();
 
+    public void setWallet(CurrencyOfWallet wallet) {
+        this.wallet.add(wallet);
+    }
 }
