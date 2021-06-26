@@ -1,6 +1,8 @@
 package com.example.demo.customer.wallet;
 
+import com.example.demo.customer.Customer;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -11,14 +13,23 @@ import java.util.Map;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class CurrencyOfWallet {
 
+    @SequenceGenerator(
+            name = "currencyOfWallet_sequence",
+            sequenceName = "currencyOfWallet_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "currencyOfWallet_sequence"
+    )
+    @Id
+    private Long id;
     private String nameCurrency;
     private Double quantity;
-
-   /* public Map<String, Double> kindOfCurrency(*//*String nameCurrency, Double quantity*//*){
-        Map<String, Double> currency = null;
-        currency.put(this.nameCurrency, this.quantity);
-        return currency;
-    }*/
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

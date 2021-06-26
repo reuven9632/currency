@@ -31,11 +31,7 @@ public class Customer{
     private String name;
     private String password;
     private String email;
-    private ArrayList<CurrencyOfWallet> wallet = new ArrayList<CurrencyOfWallet>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private CurrencyOfWallet wallet;
 
-
-
-    public void setWallet(CurrencyOfWallet wallet) {
-        this.wallet.add(wallet);
-    }
 }

@@ -24,6 +24,7 @@ public class CustomerService {
         Customer customer = customerRepo.findByName(nameCustomer).orElseThrow(
                 () -> new IllegalStateException(String.format("Not found Customer - %s", nameCustomer)));
 
+/*
 
 //        ArrayList<CurrencyOfWallet> wallet = new ArrayList<>();
         try {
@@ -33,6 +34,7 @@ public class CustomerService {
         }catch (NullPointerException e) {
             throw new IllegalStateException("Not save currencyOfWallet to Wallet");
         }
+*/
 
 
 
