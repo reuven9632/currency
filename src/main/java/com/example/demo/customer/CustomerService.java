@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public class CustomerService {
     private final CustomerRepo customerRepo;
 
     public Customer addMoneyToCustomer(String nameCustomer, CurrencyOfWallet currencyOfWallet){
-        if (!validateWalletRequest(currencyOfWallet))
+        if (!validateCurrencyOfWallet(currencyOfWallet))
             throw new IllegalStateException("Currency is not valid //WalletService.addMoneyToWallet");
 
         Customer customer = customerRepo.findByName(nameCustomer).orElseThrow(
@@ -40,7 +39,7 @@ public class CustomerService {
 //    }
 
 
-    protected Boolean validateWalletRequest(CurrencyOfWallet currencyOfWallet){
+    protected Boolean validateCurrencyOfWallet(CurrencyOfWallet currencyOfWallet){
         boolean present = currencyRepo.findByNameCurrency(
                 currencyOfWallet.getNameCurrency()).isPresent();
         return present;
@@ -52,5 +51,13 @@ public class CustomerService {
 
     public List<Customer> findAllCustomers() {
         return customerRepo.findAll();
+    }
+
+    public List<Customer> deleteCustomer(Long id) {
+        Customer customerDB = customerRepo.findById(id).orElseThrow(
+                () -> new IllegalStateException(String.format("Not found Customer with id - %s", id))
+        );
+        customerRepo.delete(customerDB);
+        return findAllCustomers();
     }
 }

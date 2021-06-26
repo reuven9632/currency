@@ -22,9 +22,16 @@ public class CustomerController {
     @PostMapping(path = "/{nameCustomer}/money")
     public Customer addMoney(
             @PathVariable("nameCustomer") String nameCustomer,
-            @RequestBody CurrencyOfWallet currencyOfWallet
-    ){
+            @RequestBody CurrencyOfWallet currencyOfWallet){
+
         return customerService.addMoneyToCustomer(nameCustomer, currencyOfWallet);
     }
+
+    @DeleteMapping(path = "delete/{id}")
+    public List<Customer> deleteCustomer(@PathVariable("id") Long id){
+        return customerService.deleteCustomer(id);
+    }
+
+
 
 }
