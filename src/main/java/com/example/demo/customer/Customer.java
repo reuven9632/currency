@@ -7,11 +7,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +31,23 @@ public class Customer{
     private String name;
     private String password;
     private String email;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private CurrencyOfWallet wallet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<CurrencyOfWallet> wallet;
 
+    public void addCurrencyToWallet(CurrencyOfWallet currency){
+        if (wallet == null)
+            wallet = new ArrayList<>();
+        wallet.add(currency);
+        currency.setCustomer(this);    //fot Bi Directional binding
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

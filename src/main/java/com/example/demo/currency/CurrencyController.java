@@ -37,6 +37,9 @@ public class CurrencyController {
         return currencyService.findCurrency(nameCurrency);
     }
 
-//    @GetMapping(path = "")
+    @DeleteMapping("/delete/{id}")
+    public List<Currency> deleteCurrency(@PathVariable("id") Long id){
+        return currencyService.deleteCurrency(id);
+    }
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,13 +22,13 @@ public class CurrencyService {
         if (currencyIsPresent)
             throw new IllegalStateException("Error: it is impossible to mine the currency, as it has already been added");
 
-        currencyRepo.save(
-                Currency.builder()
+        currencyRepo.save(currency
+                /*Currency.builder()
                         .NameCurrency(currency.getNameCurrency())
                         .AmountOfCurrency(currency.getAmountOfCurrency())
                         .ValueOfCurrency(currency.getValueOfCurrency())
                         .BaseCurrency(currency.getBaseCurrency())
-                        .build()
+                        .build()*/
         );
 
         return currencyRepo.findAll();
@@ -87,5 +88,11 @@ public class CurrencyService {
                                 () -> new IllegalStateException(String.format(NOT_FOUND_CURRENCY_MESSAGE, nameCurrency))
                         )
         );
+    }
+
+    public List<Currency> deleteCurrency(Long id) {
+        Currency currencyDB = currencyRepo.findById(id).orElseThrow(() -> new IllegalStateException(String.format(NOT_FOUND_CURRENCY_MESSAGE, id)));
+        currencyRepo.delete(currencyDB);
+        return currencyRepo.findAll();
     }
 }

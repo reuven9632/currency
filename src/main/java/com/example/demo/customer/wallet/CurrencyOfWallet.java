@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-@ToString
+
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +32,13 @@ public class CurrencyOfWallet {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @Override
+    public String toString() {
+        return "CurrencyOfWallet{" +
+                "id=" + id +
+                ", nameCurrency='" + nameCurrency + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
