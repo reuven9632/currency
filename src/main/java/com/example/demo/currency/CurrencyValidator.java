@@ -18,10 +18,10 @@ public interface CurrencyValidator extends Function<Currency, CurrencyValidator.
         return currency -> currency.getValueOfCurrency() > 0 ? SUCCESS : VALUE_OF_CURRENCY_NOT_VALID;
     }
 
-    static CurrencyValidator and(CurrencyValidator other){
+    default CurrencyValidator and(CurrencyValidator other){
         return currency -> {
             CurrencyResult result = this.apply(currency);
-            return result.equals(SUCCESS) ? other.apply() : result;
+            return result.equals(SUCCESS) ? other.apply(currency) : result;
         };
     }
 
